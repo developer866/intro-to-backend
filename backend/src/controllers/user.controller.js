@@ -14,22 +14,43 @@ const registerUser = async (req, res) => {
       return res.status(409).json({ message: "User ALready exist" });
     }
     // create user
-    const user =await User.create({
-        username,
-        email:email.toLowerCase(),
-        password,
-        // LoggedIn:false,
-    })
+    const user = await User.create({
+      username,
+      email: email.toLowerCase(),
+      password,
+      // LoggedIn:false,
+    });
     res.status(201).json({
-        message:"user Register",
-        user:{email:user.email,username:user.username}
-    })
-
+      message: "user Register",
+      user: { email: user.email, username: user.username },
+    });
   } catch (error) {
-    res.status(500).json({message:"Internal server error",error:error.message})
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
   }
 };
 
-export{
-    registerUser
-}
+const loginUser = async (req, res) => {
+  // checking if user exist
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email.toLowerCase() });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    // checking 
+    const isMatched = await user.comparePassword(password);
+    if (!isMatched) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    res.status(200).json({ message: "Login successful",
+       user: { email: user.email, username: user.username }
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+export { registerUser,loginUser };

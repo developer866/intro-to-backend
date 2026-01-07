@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema({
@@ -7,14 +8,6 @@ const userSchema = new Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    minlength: 3,
-    maxlength: 30,
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6,
-    maxlength: 50,
   },
   email: {
     type: String,
@@ -23,7 +16,17 @@ const userSchema = new Schema({
     lowercase: true,
     trim: true,
   },
-  createdAt: { type: Date, default: Date.now },
+  password: {
+    type: String,
+    required: true,
+    minlength: 6,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
+
+
 
 export const User = mongoose.model("User", userSchema);
