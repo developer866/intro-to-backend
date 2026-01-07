@@ -1,6 +1,6 @@
 import { User } from "../models/user.model.js";
 
-const registerUSer = async (req, res) => {
+const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
     // basic validation
@@ -11,14 +11,14 @@ const registerUSer = async (req, res) => {
     // check if user exist
     const existing = await User.findOne({ email: email.toLowerCase() });
     if (existing) {
-      return res.status.json({ message: "User ALready exist" });
+      return res.status(409).json({ message: "User ALready exist" });
     }
     // create user
     const user =await User.create({
         username,
         email:email.toLowerCase(),
         password,
-        LoggedIn:false,
+        // LoggedIn:false,
     })
     res.status(201).json({
         message:"user Register",
@@ -31,5 +31,5 @@ const registerUSer = async (req, res) => {
 };
 
 export{
-    registerUSer
+    registerUser
 }

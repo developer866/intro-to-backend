@@ -1,8 +1,16 @@
-import {Router} from 'express'
-import { registerUser, loginUser, getAllUsers } from '../controllers/user.controller.js';
+import { Router } from "express";
+import {
+  registerUser,
+  loginUser,
+  getAllUsers,
+} from "../controllers/user.controller.js";
 
-const router = Router()
-router.post('/register',registerUser)
-router.post('/login',loginUser)
-router.get('/',getAllUsers)
-export default routes
+const router = Router();
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.get("/", getAllUsers);
+router.get("/test", (req, res) => {
+  res.json({ message: "Users route working" });
+});
+
+export default router;

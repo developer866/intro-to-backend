@@ -1,4 +1,5 @@
-import mongoose, { mongo, Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
+
 const userSchema = new Schema({
   username: {
     type: String,
@@ -25,4 +26,4 @@ const userSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-export const User = mongoose.model("user",UserSchema)
+export const User = mongoose.model("User", userSchema);
