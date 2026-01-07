@@ -14,7 +14,8 @@ const createProduct = async (req, res) => {
       !productName ||
       !productDescription ||
       !productPrice ||
-      !productCategory|| !productAvailability
+      !productCategory ||
+      !productAvailability
     ) {
       return res.status(400).json({ message: "All fields are important!" });
     }
@@ -47,6 +48,11 @@ const createProduct = async (req, res) => {
 const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
+    res.status(200).json({
+      success: true,
+      count: products.length,
+      data: products,
+    });
   } catch (error) {
     res
       .status(500)

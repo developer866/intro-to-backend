@@ -6,7 +6,7 @@ import {
 
 const router = Router();
 router.post("/createProduct", createProduct);
-router.get("/product", getProducts);
+router.get("/", getProducts);
 
 router.get("/testproduct", (req, res) => {
   res.json({ message: "Product route working" });
